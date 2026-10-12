@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact · Fluxia</title>
+    <meta
+      name="description"
+      content="Une question sur Fluxia, l'abonnement ou vos données ? Contactez-nous par téléphone ou sur WhatsApp."
+    />
+    <meta name="theme-color" content="#0B2D45" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Fluxia" />
+    <meta property="og:title" content="Contacter Fluxia" />
+    <meta property="og:description" content="Par téléphone ou sur WhatsApp." />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/icone-32.png"
+    />
+    <link rel="apple-touch-icon" href="images/icone-180.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <script src="js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+    <header class="entete" data-entete>
+      <div class="conteneur entete-barre">
+        <a class="marque" href="index.html" aria-label="Fluxia, accueil">
+          <img src="images/logo.png" alt="" width="41" height="36" />
+          <span>Fluxia</span>
+        </a>
+        <nav class="nav" id="menu-principal" aria-label="Menu principal">
+          <ul class="nav-liens">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="abonnement.html">Abonnement</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html" aria-current="page">Contact</a></li>
+          </ul>
+          <div class="nav-actions">
+            <a
+              class="bouton bouton-plein bouton-petit"
+              href="https://wa.me/242053950223?text=Bonjour%2C%20pr%C3%A9venez-moi%20quand%20l%27application%20Fluxia%20sera%20disponible%2C%20s%27il%20vous%20pla%C3%AEt."
+              data-fenetre="sortie"
+            >
+              <span class="logos-stores" aria-hidden="true">
+                <svg class="icone"><use href="#i-apple"></use></svg>
+                <svg class="icone"><use href="#i-google-play"></use></svg>
+              </span>
+              Télécharger l'application
+            </a>
+          </div>
+        </nav>
+        <button
+          class="nav-bascule"
+          type="button"
+          aria-expanded="false"
+          aria-controls="menu-principal"
+          aria-label="Ouvrir le menu"
+          data-nav-bascule
+        >
+          <svg class="icone icone-ouvrir" aria-hidden="true">
+            <use href="#i-menu"></use>
+          </svg>
+          <svg class="icone icone-fermer" aria-hidden="true">
+            <use href="#i-fermer"></use>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <section class="entete-page">
+        <div class="conteneur" data-apparition>
+          <p class="surtitre surtitre--centre">Contactez-nous</p>
+          <h1 class="titre-1">
+            Parlons de <span class="mot-couleur">votre compte</span>
+          </h1>
+          <p class="chapeau">
+            Une question sur l'application, l'abonnement ou vos données&nbsp;?
+            Notre équipe est à votre disposition pour vous accompagner
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="conteneur contact-grille">
+          <div data-apparition>
+            <h2 class="titre-2" style="font-size: 1.6rem">Nos coordonnées</h2>
+            <ul class="coordonnees">
+              <li class="coordonnee">
+                <span class="icone-carre icone-carre--doux"
+                  ><svg class="icone" aria-hidden="true">
+                    <use href="#i-message"></use></svg
+                ></span>
+                <div>
+                  <strong>WhatsApp</strong>
+                  <a
+                    href="https://wa.me/242053950223?text=Bonjour%2C%20j%27ai%20une%20question%20sur%20Fluxia."
+                    target="_blank"
+                    rel="noopener"
+                    >+242&nbsp;05&nbsp;395&nbsp;02&nbsp;23</a
+                  >
+                </div>
+              </li>
+              <li class="coordonnee">
+                <span class="icone-carre icone-carre--doux"
+                  ><svg class="icone" aria-hidden="true">
+                    <use href="#i-appel"></use></svg
+                ></span>
+                <div>
+                  <strong>Téléphone</strong>
+                  <a href="tel:+242053950223">05&nbsp;395&nbsp;02&nbsp;23</a>
+                </div>
+              </li>
+              <li class="coordonnee">
+                <span class="icone-carre icone-carre--doux"
+                  ><svg class="icone" aria-hidden="true">
+                    <use href="#i-position"></use></svg
+                ></span>
+                <div>
+                  <strong>Où nous trouver</strong>
+                  <span>Pointe-Noire, République du Congo</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Le formulaire n'envoie rien pour l'instant : il vérifie la saisie,
+             puis propose WhatsApp (voir js/site.js). Rien n'est enregistré. -->
+          <form
+            class="carte formulaire"
+            action="#"
+            novalidate
+            data-formulaire-contact
+            data-apparition
+            style="--delai: 1"
+          >
+            <h2 class="titre-3">Écrivez-nous</h2>
+            <div class="formulaire-ligne">
+              <div class="champ">
+                <label for="nom">Nom complet</label>
+                <input
+                  id="nom"
+                  name="nom"
+                  type="text"
+                  autocomplete="name"
+                  required
+                  data-verifier
+                  data-message-vide="Indiquez votre nom."
+                  aria-describedby="nom-erreur"
+                />
+                <p class="champ-erreur" id="nom-erreur" hidden></p>
+              </div>
+              <div class="champ">
+                <label for="telephone"
+                  >Téléphone <span class="facultatif">(facultatif)</span></label
+                >
+                <input
+                  id="telephone"
+                  name="telephone"
+                  type="tel"
+                  autocomplete="tel"
+                  inputmode="tel"
+                  placeholder="06 000 00 00"
+                  data-verifier
+                  aria-describedby="telephone-erreur"
+                />
+                <p class="champ-erreur" id="telephone-erreur" hidden></p>
+              </div>
+            </div>
+            <div class="champ">
+              <label for="message">Votre message</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                data-verifier
+                data-message-vide="Écrivez votre message."
+                placeholder="Comment pouvons-nous vous aider&nbsp;?"
+                aria-describedby="message-erreur"
+              ></textarea>
+              <p class="champ-erreur" id="message-erreur" hidden></p>
+            </div>
+            <button class="bouton bouton-plein bouton-bloc" type="submit">
+              <svg class="icone icone-petite" aria-hidden="true">
+                <use href="#i-envoyer"></use>
+              </svg>
+              Envoyer le message
+            </button>
+            <div
+              class="formulaire-statut"
+              role="status"
+              tabindex="-1"
+              hidden
+              data-statut
+            >
+              <svg class="icone" aria-hidden="true">
+                <use href="#i-info"></use>
+              </svg>
+              <div>
+                <p>
+                  <strong>Le formulaire sera bientôt actif.</strong> Votre
+                  message n'a pas été envoyé&nbsp;: en attendant, écrivez-nous
+                  sur WhatsApp.
+                </p>
+                <a
+                  class="bouton bouton-plein bouton-petit"
+                  href="https://wa.me/242053950223?text=Bonjour%2C%20j%27ai%20une%20question%20sur%20Fluxia."
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <svg class="icone icone-petite" aria-hidden="true">
+                    <use href="#i-message"></use>
+                  </svg>
+                  Écrire sur WhatsApp
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0">
+        <div class="conteneur">
+          <div class="bandeau-contact" data-apparition>
+            <div>
+              <h2>Une urgence ou une question spécifique ?</h2>
+              <p>Nos conseillers vous répondent directement de vive voix.</p>
+            </div>
+            <div class="bandeau-contact-actions">
+              <a class="bouton bouton-contour" href="tel:+242053950223">
+                <svg class="icone icone-petite" aria-hidden="true">
+                  <use href="#i-appel"></use>
+                </svg>
+                +242 05&nbsp;395&nbsp;02&nbsp;23
+              </a>
+              <a
+                class="bouton bouton-plein"
+                href="https://wa.me/242053950223?text=Bonjour%2C%20j%27ai%20une%20question%20sur%20Fluxia."
+                target="_blank"
+                rel="noopener"
+              >
+                <svg class="icone icone-petite" aria-hidden="true">
+                  <use href="#i-message"></use>
+                </svg>
+                Écrire sur WhatsApp
+              </a>
+            </div>
+          </div>
+          <!-- Disponibilité à confirmer par le fondateur (le volet de support de
+             l'application annonce « 24h/24 »). -->
+          <p class="disponibilite">
+            Disponibilité&nbsp;: 24h/24, 7 jours sur 7
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="pied">
+      <div class="conteneur">
+        <div class="pied-grille">
+          <div>
+            <a class="marque" href="index.html" aria-label="Fluxia, accueil">
+              <img src="images/logo.png" alt="" width="41" height="36" />
+              <span>Fluxia</span>
+            </a>
+            <p class="pied-description">
+              Fluxia aide les commerçants à suivre leurs encaissements et à
+              piloter leur activité, simplement, depuis leur téléphone.
+            </p>
+            <ul class="pied-reseaux" aria-label="Fluxia sur les réseaux sociaux">
+              <!-- Adresses à venir : remplacer href="#" par l'adresse de la page, et retirer data-reseau-a-venir. -->
+              <li>
+                <a href="#" data-reseau-a-venir>
+                  <svg class="icone" aria-hidden="true"><use href="#i-instagram"></use></svg>
+                  <span class="visuellement-cache">Fluxia sur Instagram</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" data-reseau-a-venir>
+                  <svg class="icone" aria-hidden="true"><use href="#i-facebook"></use></svg>
+                  <span class="visuellement-cache">Fluxia sur Facebook</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/242053950223">
+                  <svg class="icone" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+                  <span class="visuellement-cache">Fluxia sur WhatsApp</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2>Fluxia</h2>
+            <ul>
+              <li><a href="index.html">Accueil</a></li>
+              <li><a href="abonnement.html">Abonnement</a></li>
+              <li><a href="a-propos.html">À propos</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Vos données</h2>
+            <ul>
+              <li>
+                <a href="politique-confidentialite.html"
+                  >Politique de confidentialité</a
+                >
+              </li>
+              <li>
+                <a href="suppression-compte.html">Supprimer mon compte</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2>Contact</h2>
+            <ul class="pied-contact">
+              <li>
+                <svg class="icone" aria-hidden="true">
+                  <use href="#i-message"></use></svg
+                ><a href="https://wa.me/242053950223">WhatsApp</a>
+              </li>
+              <li>
+                <svg class="icone" aria-hidden="true">
+                  <use href="#i-appel"></use></svg
+                ><a href="tel:+242053950223">05&nbsp;395&nbsp;02&nbsp;23</a>
+              </li>
+              <li>
+                <svg class="icone" aria-hidden="true">
+                  <use href="#i-position"></use></svg
+                ><span>Pointe-Noire, République du Congo</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="pied-bas">
+          <p>© <span data-annee>2026</span> Fluxia Tous droits réservés.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

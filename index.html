@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fluxia</title>
+    <meta
+      name="description"
+      content="Fluxia aide les commerçants du Congo à noter leurs encaissements en quelques secondes et à suivre leurs chiffres jour après jour, depuis leur téléphone. Essai gratuit de 14 jours."
+    />
+    <meta name="theme-color" content="#0B2D45" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Fluxia" />
+    <meta
+      property="og:title"
+      content="Fluxia · Pilotez votre commerce en toute clarté"
+    />
+    <meta
+      property="og:description"
+      content="Notez vos encaissements en quelques secondes et suivez vos chiffres, pour tous vos commerces, depuis votre téléphone."
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/icone-32.png"
+    />
+    <link rel="apple-touch-icon" href="images/icone-180.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+    <script src="js/site.js" defer></script>
+  </head>
+  <body>
+    <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+    <header class="entete" data-entete>
+      <div class="conteneur entete-barre">
+        <a class="marque" href="index.html" aria-label="Fluxia, accueil">
+          <img src="images/logo.png" alt="" width="41" height="36" />
+          <span>Fluxia</span>
+        </a>
+        <nav class="nav" id="menu-principal" aria-label="Menu principal">
+          <ul class="nav-liens">
+            <li><a href="index.html" aria-current="page">Accueil</a></li>
+            <li><a href="abonnement.html">Abonnement</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          <div class="nav-actions">
+            <a
+              class="bouton bouton-plein bouton-petit"
+              href="https://wa.me/242053950223?text=Bonjour%2C%20pr%C3%A9venez-moi%20quand%20l%27application%20Fluxia%20sera%20disponible%2C%20s%27il%20vous%20pla%C3%AEt."
+              data-fenetre="sortie"
+            >
+              <span class="logos-stores" aria-hidden="true">
+                <svg class="icone"><use href="#i-apple"></use></svg>
+                <svg class="icone"><use href="#i-google-play"></use></svg>
+              </span>
+              obtenir l'app
+            </a>
+          </div>
+        </nav>
+        <button
+          class="nav-bascule"
+          type="button"
+          aria-expanded="false"
+          aria-controls="menu-principal"
+          aria-label="Ouvrir le menu"
+          data-nav-bascule
+        >
+          <svg class="icone icone-ouvrir" aria-hidden="true">
+            <use href="#i-menu"></use>
+          </svg>
+          <svg class="icone icone-fermer" aria-hidden="true">
+            <use href="#i-fermer"></use>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <!-- Haut de page -->
+      <section class="heros">
+        <div class="conteneur heros-grille">
+          <div class="heros-texte" data-apparition>
+            <h1 class="titre-1">
+              Faites grandire votre activité
+              <span class="mot-couleur">avec fluxia.</span>
+            </h1>
+            <p class="chapeau">
+              Fluxia est un outil de gestion simplifié, accessible depuis votre
+              mobile. Son objectif est d’aider les propriétaires à mieux gérer
+              leur activité, à suivre l’avolution de leur clientèle et à
+              consulter leurs données, même à distance.
+            </p>
+            <div class="heros-actions">
+              <a
+                class="bouton bouton-plein"
+                href="https://wa.me/242053950223?text=Bonjour%2C%20pr%C3%A9venez-moi%20quand%20l%27application%20Fluxia%20sera%20disponible%2C%20s%27il%20vous%20pla%C3%AEt."
+                data-fenetre="sortie"
+              >
+                <span class="logos-stores" aria-hidden="true">
+                  <svg class="icone"><use href="#i-apple"></use></svg>
+                  <svg class="icone"><use href="#i-google-play"></use></svg>
+                </span>
+                Obtenir l'app
+              </a>
+              <a
+                class="bouton bouton-contour"
+                href="https://wa.me/242053950223?text=Bonjour%2C%20pr%C3%A9venez-moi%20quand%20l%27application%20Fluxia%20sera%20disponible%2C%20s%27il%20vous%20pla%C3%AEt."
+                target="_blank"
+                rel="noopener"
+              >
+                Contactez-nous
+                <svg class="icone icone-petite" aria-hidden="true">
+                  <use href="#i-fleche-diag"></use>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="heros-visuel" data-apparition style="--delai: 3">
+            <!-- Vidéo de démonstration : les vrais écrans de Fluxia, avec un
+               commerce et des montants d'exemple. -->
+            <div class="cadre-image cadre-video">
+              <video
+                class="video-demo"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="images/video-affiche.jpg"
+                width="720"
+                height="900"
+                data-video-demo
+                aria-label="Démonstration de Fluxia : enregistrer un paiement, puis le retrouver dans l'historique"
+              >
+                <source src="videos/fluxia-demo.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pourquoi Fluxia ? -->
+      <section class="section motif-croix" id="fonctionnalites">
+        <div class="conteneur">
+          <div class="carte promesse" data-apparition>
+            <div class="promesse-texte">
+              <h2 class="titre-2">
+                Pourquoi choisir <span class="mot-couleur">Fluxia</span>&nbsp;?
+              </h2>
+              <p>
+                Parce que gérer une activité ne devrait pas etre un casse tete ,
+                Choisir fluxia c'est opter pour une gestion simplifié ,
+                réduisant ainsi les risques de pertes et de fallites car tous
+                vos chiffres sont conservés. Et surtout , fluxia vous permet
+                <strong>d'observer en un coup d'œil</strong>, comment vos
+                chiffres progrèssent.
+              </p>
+            </div>
+            <div class="avantages">
+              <div class="avantage">
+                <span class="icone-carre"
+                  ><svg class="icone" aria-hidden="true">
+                    <use href="#i-eclair"></use></svg
+                ></span>
+                <h3 class="titre-3">Saisie en quelques secondes</h3>
+                <p>
+                  Le nombre de clients, le montant encaissé, et c'est
+                  enregistré.
+                </p>
+              </div>
+              <div class="avantage">
+                <span class="icone-carre"
+                  ><svg class="icone" aria-hidden="true">
+                    <use href="#i-synchro"></use></svg
+                ></span>
+                <h3 class="titre-3">Historique détaillée</h3>
+                <p>
+                  consulter l'historique de vos encaissements mensuels, et
+                  journalières, tout en ayant la possibilité de les modifier
+                  dans un délai de 24h.
+                </p>
+              </div>
+              <div class="avantage">
+                <span class="icone-carre"
+                  ><svg class="icone" aria-hidden="true">
+                    <use href="#i-boutique"></use></svg
+                ></span>
+                <h3 class="titre-3">Statistiques en temps réel</h3>
+                <p>
+                  Graphes montrant la variation de vos clients et du chiffre
+                  d'affaires en fonction des jours du mois en cours
+                </p>
+              </div>
+              <div class="avantage">
+                <span class="icone-carre"
+                  ><svg class="icone" aria-hidden="true">
+                    <use href="#i-bouclier"></use></svg
+                ></span>
+                <h3 class="titre-3">Sécurité renforcés</h3>
+                <p>
+                  fluxia offre une multitude de fonctionnalités permettant
+                  d'accroître la sécurité de chaque commerce créé.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comment ça marche -->
+      <section class="section section--claire" id="comment-ca-marche">
+        <div class="conteneur">
+          <div class="entete-section" data-apparition>
+            <p class="surtitre surtitre--centre">Comment ça marche</p>
+            <h2 class="titre-2">
+              Prêt en <span class="mot-couleur">quelques minutes</span>
+            </h2>
+            <p class="chapeau">
+              Pas de formation, pas de matériel&nbsp;: votre téléphone suffit.
+            </p>
+          </div>
+          <ol class="etapes">
+            <li class="etape" data-apparition style="--delai: 0">
+              <span class="etape-numero">1</span>
+              <svg class="icone" aria-hidden="true">
+                <use href="#i-smartphone"></use>
+              </svg>
+              <h3 class="titre-3">Créez votre compte</h3>
+              <p>
+                Avec votre nom et votre adresse email. Les 14 premiers jours
+                sont gratuits.
+              </p>
+            </li>
+            <li class="etape" data-apparition style="--delai: 1">
+              <span class="etape-numero">2</span>
+              <svg class="icone" aria-hidden="true">
+                <use href="#i-boutique"></use>
+              </svg>
+              <h3 class="titre-3">Ajoutez votre commerce</h3>
+              <p>Donnez-lui un nom et choisissez son secteur d'activité.</p>
+            </li>
+            <li class="etape" data-apparition style="--delai: 2">
+              <span class="etape-numero">3</span>
+              <svg class="icone" aria-hidden="true">
+                <use href="#i-calcul"></use>
+              </svg>
+              <h3 class="titre-3">Notez vos encaissements</h3>
+              <p>Le nombre de clients et le montant, au fil de la journée.</p>
+            </li>
+            <li class="etape" data-apparition style="--delai: 3">
+              <span class="etape-numero">4</span>
+              <svg class="icone" aria-hidden="true">
+                <use href="#i-graphique"></use>
+              </svg>
+              <h3 class="titre-3">Suivez vos chiffres</h3>
+              <p>
+                Historique, statistiques, meilleur jour&nbsp;: tout est calculé
+                pour vous.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- L'application -->
+      <section class="section" id="application">
+        <div class="conteneur">
+          <div class="entete-section" data-apparition>
+            <p class="surtitre surtitre--centre">L'application</p>
+            <h2 class="titre-2">
+              Toute votre Actvité ,
+              <span class="mot-couleur">dans votre poche.</span>
+            </h2>
+          </div>
+
+          <!-- Vidéo de présentation (52 s, avec le son) : le problème du
+               cahier de caisse, puis toutes les fonctions de Fluxia. Elle ne
+               se charge et ne démarre
+               qu'au toucher du bouton ; le lecteur du navigateur prend
+               ensuite le relais (pause, son, plein écran). -->
+          <div class="lecteur" data-lecteur data-apparition>
+            <video
+              class="lecteur-video"
+              controls
+              preload="none"
+              playsinline
+              poster="images/presentation-affiche.jpg"
+              width="1280"
+              height="720"
+              aria-label="Vidéo de présentation de Fluxia, 52 secondes, avec le son"
+            >
+              <source src="videos/fluxia-presentation.mp4" type="video/mp4" />
+            </video>
+            <button
+              class="lecteur-lancer"
+              type="button"
+              aria-label="Lire la vidéo de présentation, 52 secondes, avec le son"
+            >
+              <span class="lecteur-pastille" aria-hidden="true">
+                <span class="lecteur-rond">
+                  <svg viewBox="0 0 24 24" focusable="false">
+                    <path
+                      d="M8 5.6v12.8c0 .8.9 1.3 1.6.9l10-6.4c.6-.4.6-1.3 0-1.7l-10-6.4C8.9 4.3 8 4.8 8 5.6z"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Témoignages : les avis de commerçants qui utilisent Fluxia, qui
+           défilent. Pour ajouter un avis, copiez un élément « temoignage » de
+           la liste : le défilement s'adapte tout seul. Uniquement de vrais
+           avis, donnés avec l'accord du client. -->
+      <section class="section" id="temoignages">
+        <div class="conteneur">
+          <div class="entete-section" data-apparition>
+            <p class="surtitre surtitre--centre">Témoignages</p>
+            <h2 class="titre-2">
+              Ils pilotent leur activité avec
+              <span class="mot-couleur">Fluxia</span>
+            </h2>
+          </div>
+        </div>
+
+        <div class="defile" data-defile data-apparition>
+          <ul class="defile-piste">
+            <li class="temoignage">
+              <figure>
+                <svg
+                  class="temoignage-guillemet"
+                  viewBox="0 0 32 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
+                  />
+                </svg>
+                <blockquote>
+                  <p>
+                    Fluxia est une application formidable, c'est fou de voir le
+                    temps gagné.
+                  </p>
+                </blockquote>
+                <figcaption class="temoignage-auteur">
+                  <span class="temoignage-initiales" aria-hidden="true">E</span>
+                  <strong>M. Emmanuel</strong>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="temoignage">
+              <figure>
+                <svg
+                  class="temoignage-guillemet"
+                  viewBox="0 0 32 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
+                  />
+                </svg>
+                <blockquote>
+                  <p>
+                    Actuellement, grâce à Fluxia, je ne me tracasse plus pour
+                    connaître combien mes employés encaissent réellement&nbsp;:
+                    j'obtiens tout depuis mon smartphone.
+                  </p>
+                </blockquote>
+                <figcaption class="temoignage-auteur">
+                  <span class="temoignage-initiales" aria-hidden="true"
+                    >MJ</span
+                  >
+                  <strong>M. Makekolo Justin</strong>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="temoignage">
+              <figure>
+                <svg
+                  class="temoignage-guillemet"
+                  viewBox="0 0 32 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
+                  />
+                </svg>
+                <blockquote>
+                  <p>
+                    Je n'ai rien d'autre à rajouter&nbsp;: juste fantastique.
+                  </p>
+                </blockquote>
+                <figcaption class="temoignage-auteur">
+                  <span class="temoignage-initiales" aria-hidden="true"
+                    >MA</span
+                  >
+                  <strong>M. Mberi André</strong>
+                </figcaption>
+              </figure>
+            </li>
+            <li class="temoignage">
+              <figure>
+                <svg
+                  class="temoignage-guillemet"
+                  viewBox="0 0 32 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
+                  />
+                </svg>
+                <blockquote>
+                  <p>
+                    Je n'avais pas encore vu une application de gestion aussi
+                    simple et utile de nos jours, c'est juste magnifique.
+                  </p>
+                </blockquote>
+                <figcaption class="temoignage-auteur">
+                  <span class="temoignage-initiales" aria-hidden="true">K</span>
+                  <strong>M. Karl</strong>
+                </figcaption>
+              </figure>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Une question ? -->
+      <section class="section">
+        <div class="conteneur">
+          <div class="bandeau-contact" data-apparition>
+            <div>
+              <h2>Une question&nbsp;? Parlons-en.</h2>
+              <p>
+                Nous vous répondons par téléphone ou sur WhatsApp.
+                <a href="contact.html">Toutes nos coordonnées</a>
+              </p>
+            </div>
+            <div class="bandeau-contact-actions">
+              <a class="bouton bouton-contour" href="tel:+242053950223">
+                <svg class="icone icone-petite" aria-hidden="true">
+                  <use href="#i-appel"></use>
+                </svg>
+                05&nbsp;395&nbsp;02&nbsp;23
+              </a>
+              <a
+                class="bouton bouton-plein"
+                href="https://wa.me/242053950223?text=Bonjour%2C%20j%27ai%20une%20question%20sur%20Fluxia."
+                target="_blank"
+                rel="noopener"
+              >
+                <svg class="icone icone-petite" aria-hidden="true">
+                  <use href="#i-message"></use>
+                </svg>
+                Écrire sur WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="pied">
+      <div class="conteneur">
+        <div class="pied-grille">
+          <div>
+            <a class="marque" href="index.html" aria-label="Fluxia, accueil">
+              <img src="images/logo.png" alt="" width="41" height="36" />
+              <span>Fluxia</span>
+            </a>
+            <p class="pied-description">
+              Fluxia aide les commerçants à suivre leurs encaissements et à
+              piloter leur activité, simplement, depuis leur téléphone.
+            </p>
+            <ul class="pied-reseaux" aria-label="Fluxia sur les réseaux sociaux">
+              <!-- Adresses à venir : remplacer href="#" par l'adresse de la page, et retirer data-reseau-a-venir. -->
+              <li>
+                <a href="#" data-reseau-a-venir>
+                  <svg class="icone" aria-hidden="true"><use href="#i-instagram"></use></svg>
+                  <span class="visuellement-cache">Fluxia sur Instagram</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" data-reseau-a-venir>
+                  <svg class="icone" aria-hidden="true"><use href="#i-facebook"></use></svg>
+                  <span class="visuellement-cache">Fluxia sur Facebook</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/242053950223">
+                  <svg class="icone" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+                  <span class="visuellement-cache">Fluxia sur WhatsApp</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2>Fluxia</h2>
+            <ul>
+              <li><a href="index.html">Accueil</a></li>
+              <li><a href="abonnement.html">Abonnement</a></li>
+              <li><a href="a-propos.html">À propos</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Vos données</h2>
+            <ul>
+              <li>
+                <a href="politique-confidentialite.html"
+                  >Politique de confidentialité</a
+                >
+              </li>
+              <li>
+                <a href="suppression-compte.html">Supprimer mon compte</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2>Contact</h2>
+            <ul class="pied-contact">
+              <li>
+                <svg class="icone" aria-hidden="true">
+                  <use href="#i-message"></use></svg
+                ><a href="https://wa.me/242053950223">WhatsApp</a>
+              </li>
+              <li>
+                <svg class="icone" aria-hidden="true">
+                  <use href="#i-appel"></use></svg
+                ><a href="tel:+242053950223">05&nbsp;395&nbsp;02&nbsp;23</a>
+              </li>
+              <li>
+                <svg class="icone" aria-hidden="true">
+                  <use href="#i-position"></use></svg
+                ><span>Pointe-Noire, République du Congo</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="pied-bas">
+          <p>© <span data-annee></span> Fluxia Tous droits réservés.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
