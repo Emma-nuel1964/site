@@ -27,6 +27,7 @@ Double-cliquez sur `index.html` : le site s'ouvre dans le navigateur, sans serve
 - **Le bouton « Télécharger l'application »**, avec les logos de l'App Store et de Google Play : il ouvre pour l'instant la fenêtre « L'application arrive bientôt » (`js/site.js`). Le jour de la publication, il faudra le faire pointer vers les magasins, et utiliser les badges officiels d'Apple et de Google, que leurs règles imposent.
 - **Le menu et le pied de page** : ils sont recopiés dans chaque page. Une modification doit être faite **dans toutes les pages et dans `modeles/page-legale.html`**.
 - **Le numéro WhatsApp et de téléphone** (05 395 02 23) : il apparaît dans toutes les pages, dans `js/site.js` (constante `WHATSAPP`) et dans l'application (`lib/core/config/support_contact.dart`). Pour le changer, cherchez `053950223` et `05&nbsp;395&nbsp;02&nbsp;23` dans tous les fichiers.
+- **L'adresse email** (contact@appfluxia.com) : elle apparaît dans la page Contact (« Nos coordonnées »), et dans le pied de page de toutes les pages et de `modeles/page-legale.html`. Pour la changer, cherchez `contact@appfluxia.com` dans tous les fichiers.
 - **Les icônes** : elles sont dessinées dans `js/site.js` (liste `ICONES`) et utilisées dans les pages avec `<svg class="icone"><use href="#i-nom"></use></svg>`.
 - **Les réseaux sociaux** (pied de page de toutes les pages, sous la phrase de présentation) : Instagram, Facebook et WhatsApp.
   - Instagram et Facebook attendent leur adresse : pour l'instant, leur lien est `href="#"`, et un toucher ne fait rien.
@@ -107,13 +108,17 @@ L'outil reprend le gabarit `modeles/page-legale.html` (menu, pied de page, style
 - [ ] **Le mot du fondateur**, dans `a-propos.html` : c'est un brouillon, à valider ou à remplacer avant la mise en ligne.
 - [ ] **La disponibilité**, dans `contact.html` : « 24h/24, 7 jours sur 7 », comme dans l'application. À confirmer.
 - [ ] **Les droits des quatre photos** de la vidéo de présentation (boutique, taxis, restaurant, prêt-à-porter) : si elles viennent d'internet, il faut l'accord de leur auteur ou une licence avant la mise en ligne. Sinon, il faut les remplacer par des photos libres de droits ou prises par vous.
-- [ ] **L'adresse email de contact**, quand elle existera : à ajouter dans la page Contact, dans le pied de page et dans la politique de confidentialité.
+- [ ] **L'adresse email dans la politique de confidentialité** : contact@appfluxia.com est déjà dans la page Contact et le pied de page. Reste à l'ajouter au texte de la politique (`lib/core/legal/privacy_policy.dart`, dans le dossier `fluxia`), puis à relancer l'outil des pages légales.
 ## Plus tard
 - **La mise en ligne** : le site fonctionne chez n'importe quel hébergeur de sites statiques. Il suffit de copier le dossier entier, sauf `modeles/` et ce fichier. Une fois le nom de domaine choisi, il faudra ajouter :
   - l'adresse complète des pages dans les balises `og:` (aperçu des liens partagés sur WhatsApp) ;
   - les fichiers `robots.txt` et `sitemap.xml`.
 - **Le paiement de l'abonnement** : il prendra place dans le bloc « Payer mon abonnement » de `abonnement.html` (`id="paiement"`).
-- **L'envoi du formulaire de contact** : pour l'instant, `js/site.js` vérifie la saisie et propose WhatsApp, sans rien envoyer.
+- **L'envoi du formulaire de contact** : le formulaire demande le nom, l'adresse email (obligatoire, pour pouvoir répondre), le téléphone (facultatif) et le message.
+  - Pour l'instant, `js/site.js` vérifie la saisie, y compris la forme de l'adresse email, puis propose WhatsApp. Rien n'est envoyé ni enregistré.
+  - **Décision du 14/10/2026** : l'envoi passera par un service de formulaires en ligne, comme FormSubmit, une fois le site terminé.
+  - Ce jour-là, les messages transiteront par ce service avant d'arriver sur contact@appfluxia.com. Il faudra donc le dire dans la politique de confidentialité : quelles informations le site recueille, à quoi elles servent, et par quel service elles passent.
+  - Il faudra aussi corriger la phrase « Aucune ressource extérieure » de ce fichier.
 
 ## Ce que le site respecte
 - **Aucune ressource extérieure** : les polices sont dans `polices/`, avec leur licence. Aucun cookie n'est déposé et aucune mesure d'audience n'est faite.
