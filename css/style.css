@@ -1620,6 +1620,13 @@ html:not(.js) .lecteur-lancer {
   gap: 36px;
   align-items: center;
 }
+.cadre-image-apropos img{
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+
+
+}
 
 .fondateur-photo {
   position: relative;
@@ -1730,11 +1737,13 @@ html:not(.js) .lecteur-lancer {
   place-items: center;
   min-height: 280px;
   padding: 24px;
-  background: linear-gradient(150deg, #EFFCFA 0%, var(--menthe) 50%, #CFE6F3 100%);
+  box-shadow: 0 0 10px rgba(11, 45, 69, 0.06);
 }
 
 .carte-duo-visuel img {
-  width: min(220px, 60%);
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 
 .carte-duo-visuel > .comparaison {
