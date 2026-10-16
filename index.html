@@ -59,7 +59,7 @@
                 <svg class="icone"><use href="#i-apple"></use></svg>
                 <svg class="icone"><use href="#i-google-play"></use></svg>
               </span>
-              obtenir l'app
+              Télecharger l'appli
             </a>
           </div>
         </nav>
@@ -106,7 +106,7 @@
                   <svg class="icone"><use href="#i-apple"></use></svg>
                   <svg class="icone"><use href="#i-google-play"></use></svg>
                 </span>
-                Obtenir l'app
+                Télécharger l'appli
               </a>
               <a
                 class="bouton bouton-contour"
@@ -319,8 +319,9 @@
 
       <!-- Témoignages : les avis de commerçants qui utilisent Fluxia, qui
            défilent. Pour ajouter un avis, copiez un élément « temoignage » de
-           la liste : le défilement s'adapte tout seul. Uniquement de vrais
-           avis, donnés avec l'accord du client. -->
+           la liste : le défilement s'adapte tout seul. Les flèches, à gauche et
+           à droite, font venir l'avis précédent ou suivant. Uniquement de
+           vrais avis, donnés avec l'accord du client. -->
       <section class="section" id="temoignages">
         <div class="conteneur">
           <div class="entete-section" data-apparition>
@@ -332,105 +333,155 @@
           </div>
         </div>
 
-        <div class="defile" data-defile data-apparition>
-          <ul class="defile-piste">
-            <li class="temoignage">
-              <figure>
-                <svg
-                  class="temoignage-guillemet"
-                  viewBox="0 0 32 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
-                  />
-                </svg>
-                <blockquote>
-                  <p>
-                    Fluxia est une application formidable, c'est fou de voir le
-                    temps gagné.
-                  </p>
-                </blockquote>
-                <figcaption class="temoignage-auteur">
-                  <span class="temoignage-initiales" aria-hidden="true">E</span>
-                  <strong>M. Emmanuel</strong>
-                </figcaption>
-              </figure>
-            </li>
-            <li class="temoignage">
-              <figure>
-                <svg
-                  class="temoignage-guillemet"
-                  viewBox="0 0 32 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
-                  />
-                </svg>
-                <blockquote>
-                  <p>
-                    Actuellement, grâce à Fluxia, je ne me tracasse plus pour
-                    connaître combien mes employés encaissent réellement&nbsp;:
-                    j'obtiens tout depuis mon smartphone.
-                  </p>
-                </blockquote>
-                <figcaption class="temoignage-auteur">
-                  <span class="temoignage-initiales" aria-hidden="true"
-                    >MJ</span
+        <div class="defile-cadre" data-defile data-apparition>
+          <div class="defile">
+            <ul class="defile-piste" id="liste-temoignages">
+              <li class="temoignage">
+                <figure>
+                  <svg
+                    class="temoignage-guillemet"
+                    viewBox="0 0 32 24"
+                    aria-hidden="true"
                   >
-                  <strong>M. Makekolo Justin</strong>
-                </figcaption>
-              </figure>
-            </li>
-            <li class="temoignage">
-              <figure>
-                <svg
-                  class="temoignage-guillemet"
-                  viewBox="0 0 32 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
-                  />
-                </svg>
-                <blockquote>
-                  <p>
-                    Je n'ai rien d'autre à rajouter&nbsp;: juste fantastique.
-                  </p>
-                </blockquote>
-                <figcaption class="temoignage-auteur">
-                  <span class="temoignage-initiales" aria-hidden="true"
-                    >MA</span
+                    <path
+                      d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
+                    />
+                  </svg>
+                  <blockquote>
+                    <p>
+                      Fluxia est une application formidable, c'est fou de voir le
+                      temps gagné.
+                    </p>
+                  </blockquote>
+                  <figcaption class="temoignage-auteur">
+                    <svg
+                      class="temoignage-personne"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="7.5" r="4.5" />
+                      <path d="M3.5 21a8.5 7.5 0 0 1 17 0z" />
+                    </svg>
+                    <strong>M. Emmanuel</strong>
+                  </figcaption>
+                </figure>
+              </li>
+              <li class="temoignage">
+                <figure>
+                  <svg
+                    class="temoignage-guillemet"
+                    viewBox="0 0 32 24"
+                    aria-hidden="true"
                   >
-                  <strong>M. Mberi André</strong>
-                </figcaption>
-              </figure>
-            </li>
-            <li class="temoignage">
-              <figure>
-                <svg
-                  class="temoignage-guillemet"
-                  viewBox="0 0 32 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
-                  />
-                </svg>
-                <blockquote>
-                  <p>
-                    Je n'avais pas encore vu une application de gestion aussi
-                    simple et utile de nos jours, c'est juste magnifique.
-                  </p>
-                </blockquote>
-                <figcaption class="temoignage-auteur">
-                  <span class="temoignage-initiales" aria-hidden="true">K</span>
-                  <strong>M. Karl</strong>
-                </figcaption>
-              </figure>
-            </li>
-          </ul>
+                    <path
+                      d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
+                    />
+                  </svg>
+                  <blockquote>
+                    <p>
+                      Actuellement, grâce à Fluxia, je ne me tracasse plus pour
+                      connaître combien mes employés encaissent réellement&nbsp;:
+                      j'obtiens tout depuis mon smartphone.
+                    </p>
+                  </blockquote>
+                  <figcaption class="temoignage-auteur">
+                    <svg
+                      class="temoignage-personne"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="7.5" r="4.5" />
+                      <path d="M3.5 21a8.5 7.5 0 0 1 17 0z" />
+                    </svg>
+                    <strong>M. Makekolo Justin</strong>
+                  </figcaption>
+                </figure>
+              </li>
+              <li class="temoignage">
+                <figure>
+                  <svg
+                    class="temoignage-guillemet"
+                    viewBox="0 0 32 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
+                    />
+                  </svg>
+                  <blockquote>
+                    <p>
+                      Je n'ai rien d'autre à rajouter&nbsp;: juste fantastique.
+                    </p>
+                  </blockquote>
+                  <figcaption class="temoignage-auteur">
+                    <svg
+                      class="temoignage-personne"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="7.5" r="4.5" />
+                      <path d="M3.5 21a8.5 7.5 0 0 1 17 0z" />
+                    </svg>
+                    <strong>M. Mberi André</strong>
+                  </figcaption>
+                </figure>
+              </li>
+              <li class="temoignage">
+                <figure>
+                  <svg
+                    class="temoignage-guillemet"
+                    viewBox="0 0 32 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M0 24V14C0 6 4.5 1.3 12 0l1.5 3.4C9 5 7.2 7.9 7 12h6v12H0zm18 0V14c0-8 4.5-12.7 12-14l1.5 3.4C27 5 25.2 7.9 25 12h6v12H18z"
+                    />
+                  </svg>
+                  <blockquote>
+                    <p>
+                      Je n'avais pas encore vu une application de gestion aussi
+                      simple et utile de nos jours, c'est juste magnifique.
+                    </p>
+                  </blockquote>
+                  <figcaption class="temoignage-auteur">
+                    <svg
+                      class="temoignage-personne"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="7.5" r="4.5" />
+                      <path d="M3.5 21a8.5 7.5 0 0 1 17 0z" />
+                    </svg>
+                    <strong>M. Karl</strong>
+                  </figcaption>
+                </figure>
+              </li>
+            </ul>
+          </div>
+          <button
+            class="defile-fleche defile-fleche--precedent"
+            type="button"
+            aria-controls="liste-temoignages"
+            aria-label="Témoignage précédent"
+            data-defile-precedent
+            hidden
+          >
+            <svg class="icone" aria-hidden="true">
+              <use href="#i-chevron-gauche"></use>
+            </svg>
+          </button>
+          <button
+            class="defile-fleche defile-fleche--suivant"
+            type="button"
+            aria-controls="liste-temoignages"
+            aria-label="Témoignage suivant"
+            data-defile-suivant
+            hidden
+          >
+            <svg class="icone" aria-hidden="true">
+              <use href="#i-chevron-droite"></use>
+            </svg>
+          </button>
         </div>
       </section>
 

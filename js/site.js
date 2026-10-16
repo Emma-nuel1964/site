@@ -7,6 +7,7 @@
    - la fenêtre « L'application arrive bientôt » (bouton « Télécharger l'application ») ;
    - le formulaire de contact, qui n'envoie encore rien ;
    - la vidéo de démonstration (pause au toucher, hors de l'écran) ;
+   - les témoignages qui défilent (accueil), avec leurs flèches ;
    - les réseaux sociaux du pied de page, dont les adresses viendront plus tard ;
    - l'année du pied de page.
    Sans JavaScript, le site reste lisible : seules les icônes et les
@@ -53,6 +54,8 @@
     'carte': '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M16 15h2"/>',
     'info': '<circle cx="12" cy="12" r="9"/><path d="M12 16v-4.5M12 8h.01"/>',
     'chevron-bas': '<path d="m6 9 6 6 6-6"/>',
+    'chevron-gauche': '<path d="m15 6-6 6 6 6"/>',
+    'chevron-droite': '<path d="m9 6 6 6-6 6"/>',
     'horloge': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     'envoyer': '<path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/>',
     'calcul': '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01"/>',
@@ -346,27 +349,219 @@
   }
 
   /* ------------------------------------------------------------------------
-     Témoignages qui défilent (accueil) : la liste est doublée pour que le
-     défilement reparte sans saut, et sa durée suit sa longueur. Rien ne bouge
-     si le visiteur a demandé moins d'animations : les avis se font alors
-     défiler à la main.
+     Témoignages qui défilent (accueil), avec leurs flèches.
+     - Les avis sont recopiés autant qu'il faut pour que l'écran reste plein :
+       la piste glisse d'un exemplaire, puis repart, sans saut.
+     - Les flèches font venir l'avis précédent ou suivant, au centre.
+     - Le survol de la souris n'arrête pas le défilement. Il s'arrête pendant
+       un toucher, quand une flèche a le focus du clavier, et hors de l'écran.
+       Après un clic sur une flèche ou un toucher, il reprend au bout de
+       5 secondes, le temps de lire.
+     - Si le visiteur a demandé moins d'animations, rien ne bouge tout seul :
+       les avis se font défiler à la main, et les flèches les avancent d'un
+       coup.
      ------------------------------------------------------------------------ */
   function activerTemoignages() {
     var reduit = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduit) return;
-    document.querySelectorAll('[data-defile]').forEach(function (defile) {
-      var piste = defile.querySelector('.defile-piste');
-      if (!piste || !piste.children.length) return;
-      Array.prototype.slice.call(piste.children).forEach(function (avis) {
+    document.querySelectorAll('[data-defile]').forEach(function (cadre) {
+      var fenetre = cadre.querySelector('.defile');
+      var piste = cadre.querySelector('.defile-piste');
+      var precedent = cadre.querySelector('[data-defile-precedent]');
+      var suivant = cadre.querySelector('[data-defile-suivant]');
+      if (!fenetre || !piste || !piste.children.length) return;
+      // Des flèches seulement pour au moins deux avis.
+      if (!precedent || !suivant || piste.children.length < 2) precedent = suivant = null;
+      if (reduit) defilerALaMain(fenetre, piste, precedent, suivant);
+      else defilerToutSeul(cadre, fenetre, piste, precedent, suivant);
+    });
+  }
+
+  /* Sans animation : la bande se fait défiler à la main (css/style.css), et
+     chaque flèche l'avance d'une carte. Au bout de la liste, la flèche qui ne
+     mène plus nulle part s'estompe. */
+  function defilerALaMain(fenetre, piste, precedent, suivant) {
+    if (!precedent) return;
+    // Des marges plus larges : au début et à la fin de la liste, les cartes ne
+    // passent pas sous les flèches.
+    fenetre.classList.add('a-la-main');
+
+    function pas() {
+      return piste.children[1].getBoundingClientRect().left - piste.children[0].getBoundingClientRect().left;
+    }
+
+    function centre(element) {
+      var r = element.getBoundingClientRect();
+      return r.left + r.width / 2;
+    }
+
+    function bouts() {
+      var fin = fenetre.scrollWidth - fenetre.clientWidth;
+      var milieu = centre(fenetre);
+      // Tout tient dans l'écran : pas de flèches.
+      precedent.hidden = suivant.hidden = fin <= 1;
+      // Au bout : la bande ne peut plus avancer, ou la carte du bout est déjà
+      // au centre.
+      precedent.disabled = fenetre.scrollLeft <= 1 || centre(piste.firstElementChild) >= milieu - 1;
+      suivant.disabled = fenetre.scrollLeft >= fin - 1 || centre(piste.lastElementChild) <= milieu + 1;
+    }
+
+    precedent.addEventListener('click', function () { fenetre.scrollLeft -= pas(); });
+    suivant.addEventListener('click', function () { fenetre.scrollLeft += pas(); });
+    fenetre.addEventListener('scroll', bouts, { passive: true });
+    window.addEventListener('resize', bouts);
+    bouts();
+  }
+
+  /* Avec animation : la piste glisse toute seule, et les flèches la font
+     avancer d'une carte, en douceur. */
+  function defilerToutSeul(cadre, fenetre, piste, precedent, suivant) {
+    var VITESSE = 40;          // pixels par seconde, quel que soit le nombre d'avis
+    var DUREE_GLISSE = 450;    // millisecondes, pour un coup de flèche
+    var PAUSE_LECTURE = 5000;  // millisecondes, après un clic ou un toucher
+
+    var originaux = Array.prototype.slice.call(piste.children);
+    var exemplaires = 1;
+    var pas = 0;        // d'une carte à la suivante, écart compris
+    var longueur = 0;   // d'un exemplaire de la liste au suivant
+    var origine = 0;    // décalage qui centre une carte dans la bande
+    var largeur = 0;    // de la bande, à la dernière mesure
+    var decalage = 0;   // position de la piste, en pixels
+    var dessine = null; // dernière position affichée
+    var glisse = null;  // coup de flèche en cours : { depart, arrivee, debut }
+    var reprise = 0;    // pas de défilement tout seul avant cet instant
+    var toucher = false;
+    var focusClavier = false;
+    var visible = true;
+    var enCours = false;
+    var derniere = 0;
+
+    function modulo(x, m) {
+      return ((x % m) + m) % m;
+    }
+
+    function recopier() {
+      originaux.forEach(function (avis) {
         var copie = avis.cloneNode(true);
         copie.setAttribute('aria-hidden', 'true');
         piste.appendChild(copie);
       });
-      defile.classList.add('est-pret');
-      // Environ 40 pixels par seconde, quel que soit le nombre d'avis.
-      var largeur = piste.scrollWidth / 2;
-      piste.style.setProperty('--duree', Math.max(20, Math.round(largeur / 40)) + 's');
+      exemplaires++;
+    }
+
+    function mesurer() {
+      var premiere = originaux[0].getBoundingClientRect();
+      largeur = fenetre.clientWidth;
+      pas = piste.children[1].getBoundingClientRect().left - premiere.left;
+      longueur = piste.children[originaux.length].getBoundingClientRect().left - premiere.left;
+      origine = (largeur - premiere.width) / 2;
+      // Assez d'exemplaires pour qu'aucun vide n'apparaisse à droite.
+      while ((exemplaires - 1) * longueur < largeur + pas) recopier();
+    }
+
+    function dessiner() {
+      var x = -modulo(decalage, longueur);
+      if (x === dessine) return;
+      dessine = x;
+      piste.style.transform = 'translate3d(' + x.toFixed(2) + 'px, 0, 0)';
+    }
+
+    function image(t) {
+      var ecoule = derniere ? Math.min(t - derniere, 100) : 0;
+      derniere = t;
+      if (glisse) {
+        var avancee = Math.max(0, Math.min(1, (t - glisse.debut) / DUREE_GLISSE));
+        // Départ franc, arrivée en douceur.
+        decalage = glisse.depart + (glisse.arrivee - glisse.depart) * (1 - Math.pow(1 - avancee, 3));
+        if (avancee === 1) glisse = null;
+      } else if (!toucher && !focusClavier && t >= reprise) {
+        decalage = modulo(decalage + VITESSE * ecoule / 1000, longueur);
+      }
+      dessiner();
+      if (visible) requestAnimationFrame(image);
+      else enCours = false;
+    }
+
+    function demarrer() {
+      if (enCours || !visible) return;
+      enCours = true;
+      derniere = 0;
+      requestAnimationFrame(image);
+    }
+
+    function aller(sens) {
+      var maintenant = performance.now();
+      var position = ((glisse ? glisse.arrivee : decalage) + origine) / pas;
+      // Si la carte voisine est déjà presque au centre, on va à la suivante :
+      // chaque clic se voit.
+      var carte = sens > 0 ? Math.floor(position + 0.3) + 1 : Math.ceil(position - 0.3) - 1;
+      glisse = { depart: decalage, arrivee: carte * pas - origine, debut: maintenant };
+      reprise = maintenant + PAUSE_LECTURE;
+      demarrer();
+    }
+
+    function auClavier(element) {
+      try {
+        return element.matches(':focus-visible');
+      } catch (e) {
+        return true; // navigateur ancien : on s'arrête, par prudence
+      }
+    }
+
+    fenetre.classList.add('est-pret');
+    recopier();
+    mesurer();
+    decalage = modulo(-origine, longueur); // la première carte, au centre
+    dessiner();
+
+    cadre.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse') toucher = true;
     });
+    ['pointerup', 'pointercancel'].forEach(function (nom) {
+      cadre.addEventListener(nom, function (e) {
+        if (e.pointerType === 'mouse') return;
+        toucher = false;
+        reprise = performance.now() + PAUSE_LECTURE;
+      });
+    });
+    cadre.addEventListener('focusin', function (e) {
+      focusClavier = auClavier(e.target);
+    });
+    cadre.addEventListener('focusout', function (e) {
+      if (!cadre.contains(e.relatedTarget)) focusClavier = false;
+    });
+
+    if (precedent) {
+      precedent.addEventListener('click', function () { aller(-1); });
+      suivant.addEventListener('click', function () { aller(1); });
+      precedent.hidden = false;
+      suivant.hidden = false;
+    }
+
+    // Une autre largeur d'écran change la taille des cartes : on remesure, et
+    // la carte du centre y reste. La hauteur seule ne compte pas : sur
+    // téléphone, elle change avec la barre d'adresse.
+    var attente = null;
+    window.addEventListener('resize', function () {
+      if (attente) return;
+      attente = requestAnimationFrame(function () {
+        attente = null;
+        if (fenetre.clientWidth === largeur) return;
+        var carte = Math.round((decalage + origine) / pas);
+        mesurer();
+        glisse = null;
+        decalage = modulo(carte * pas - origine, longueur);
+        dessiner();
+      });
+    });
+
+    // Hors de l'écran, rien ne tourne.
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entrees) {
+        visible = entrees[0].isIntersecting;
+        demarrer();
+      }).observe(fenetre);
+    }
+    demarrer();
   }
 
   /* ------------------------------------------------------------------------
