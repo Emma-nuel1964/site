@@ -1,0 +1,6 @@
+# Fichiers internes : ils restent sur l'ordinateur, jamais en ligne.
+# - LISEZMOI.md : le mode d'emploi du site ;
+# - modeles/ : le gabarit des pages légales, lu par l'outil de l'application
+#   (dart run tool/politique_web.dart ../fluxia_site).
+LISEZMOI.md
+modeles/
