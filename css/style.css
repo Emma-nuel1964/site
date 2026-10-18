@@ -387,7 +387,7 @@ h4 {
 
 /* Le bleu des cartes de l'application. */
 .bouton-plein {
-  background: var(--degrade-app);
+  background: black;
   color: var(--blanc);
   box-shadow: var(--ombre-bouton);
 }
@@ -1747,6 +1747,7 @@ html:not(.js) .lecteur-lancer {
   transition: 0.3s ease;
 }
   .partenaire img:hover{
+    /* PERMET DE METTRE de gerer la couleur de l'objet */
     filter: grayscale(0%);
   }
 .partenaire .nom-part{
@@ -2490,6 +2491,323 @@ p.surtitre {
 .js [data-apparition].visible {
   opacity: 1;
   transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Entrées en scène plus vivantes (19/10/2026)
+   Ces règles n'animent que l'arrivée des éléments déjà présents, à
+   l'ouverture de la page et au défilement : une fois arrivés, ils sont
+   exactement comme avant. Seulement des glissements, des zooms et des
+   fondus (transform, opacity), légers pour les petits téléphones. Rien ne
+   bouge si le visiteur a demandé moins d'animations (voir plus bas), et rien
+   n'est caché sans JavaScript (classe .js).
+   -------------------------------------------------------------------------- */
+:root {
+  --courbe-douce: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Dépasse un peu, puis revient : l'effet « ressort ». */
+  --courbe-ressort: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+/* L'en-tête descend, puis les liens du menu arrivent un à un. */
+.js .entete {
+  animation: arrivee-du-haut 0.7s var(--courbe-douce) backwards;
+}
+
+.js .nav-liens > li,
+.js .nav-actions {
+  animation: arrivee-du-haut-courte 0.6s var(--courbe-douce) backwards;
+}
+
+.js .nav-liens > li:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.js .nav-liens > li:nth-child(2) {
+  animation-delay: 0.27s;
+}
+
+.js .nav-liens > li:nth-child(3) {
+  animation-delay: 0.34s;
+}
+
+.js .nav-liens > li:nth-child(4) {
+  animation-delay: 0.41s;
+}
+
+.js .nav-liens > li:nth-child(5) {
+  animation-delay: 0.48s;
+}
+
+.js .nav-actions {
+  animation-delay: 0.55s;
+}
+
+@keyframes arrivee-du-haut {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes arrivee-du-haut-courte {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+/* Groupes en cascade (haut de page, en-têtes de section, questions
+   fréquentes) : le bloc reste en place et ses enfants arrivent l'un après
+   l'autre. js/site.js donne à chacun son rang (--rang). */
+.js .heros-texte[data-apparition],
+.js .entete-section[data-apparition],
+.js .entete-page [data-apparition],
+.js .faq[data-apparition] {
+  opacity: 1;
+  transform: none;
+}
+
+.js .heros-texte[data-apparition] > *,
+.js .entete-section[data-apparition] > *,
+.js .entete-page [data-apparition] > *,
+.js .faq[data-apparition] > * {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--courbe-douce), transform 0.9s var(--courbe-ressort);
+  transition-delay: calc(var(--delai, 0) * 90ms + var(--rang, 0) * 120ms);
+}
+
+.js .heros-texte[data-apparition].visible > *,
+.js .entete-section[data-apparition].visible > *,
+.js .entete-page [data-apparition].visible > *,
+.js .faq[data-apparition].visible > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* Les traits des sur-titres se tracent depuis le texte. */
+.js [data-apparition] .surtitre::before,
+.js [data-apparition] .surtitre--centre::after {
+  transform: scaleX(0);
+  transition: transform 0.6s var(--courbe-douce);
+  transition-delay: calc(var(--delai, 0) * 90ms + var(--rang, 0) * 120ms + 0.35s);
+}
+
+.js [data-apparition] .surtitre::before {
+  transform-origin: right center;
+}
+
+.js [data-apparition] .surtitre--centre::after {
+  transform-origin: left center;
+}
+
+.js [data-apparition].visible .surtitre::before,
+.js [data-apparition].visible .surtitre--centre::after {
+  transform: none;
+}
+
+/* Un reflet balaie une fois les mots en couleur des titres, qui gardent
+   ensuite leur couleur. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .js [data-apparition] .mot-couleur {
+    background: linear-gradient(100deg, var(--sarcelle-texte) 0 42%, #8FE6DC 50%, var(--sarcelle-texte) 58% 100%) 100% 0 / 260% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .js [data-apparition].visible .mot-couleur {
+    animation: reflet-mot 1.5s ease-in-out both;
+    animation-delay: calc(var(--delai, 0) * 90ms + var(--rang, 0) * 120ms + 0.6s);
+  }
+}
+
+@keyframes reflet-mot {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
+/* Un éclat traverse une fois le bouton principal du haut de page et celui
+   de l'abonnement. */
+.js .heros-actions .bouton-plein,
+.js .carte-tarif .bouton-plein {
+  position: relative;
+  overflow: hidden;
+}
+
+.js .heros-actions .bouton-plein::after,
+.js .carte-tarif .bouton-plein::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%);
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+
+.js [data-apparition].visible .heros-actions .bouton-plein::after,
+.js .carte-tarif[data-apparition].visible .bouton-plein::after {
+  animation: eclat-bouton 1.1s ease-in-out 1.2s both;
+}
+
+@keyframes eclat-bouton {
+  from {
+    transform: translateX(-130%);
+  }
+
+  to {
+    transform: translateX(130%);
+  }
+}
+
+/* La vidéo du haut arrive de côté en tournant à peine ; la photo du
+   fondateur, de l'autre côté. */
+.js .heros-visuel[data-apparition] {
+  transform: translate(48px, 24px) scale(0.9) rotate(3deg);
+  transition-duration: 0.9s, 1.2s;
+  transition-timing-function: var(--courbe-douce), var(--courbe-ressort);
+}
+
+.js .fondateur-photo[data-apparition] {
+  transform: translateX(-48px) scale(0.95) rotate(-2deg);
+  transition-duration: 0.9s, 1.1s;
+  transition-timing-function: var(--courbe-douce), var(--courbe-ressort);
+}
+
+.js .heros-visuel[data-apparition].visible,
+.js .fondateur-photo[data-apparition].visible {
+  transform: none;
+}
+
+/* Cartes, étapes, vidéo de présentation, bandeau de contact : ils montent
+   en grandissant légèrement. La 3e transition sert au survol (plus bas). */
+.js .carte[data-apparition],
+.js .etape[data-apparition],
+.js .lecteur[data-apparition],
+.js .bandeau-contact[data-apparition] {
+  transform: translateY(36px) scale(0.95);
+  transition: opacity 0.8s var(--courbe-douce), transform 1s var(--courbe-ressort), translate 0.3s ease;
+  transition-delay: calc(var(--delai, 0) * 90ms), calc(var(--delai, 0) * 90ms), 0s;
+}
+
+.js .carte[data-apparition].visible,
+.js .etape[data-apparition].visible,
+.js .lecteur[data-apparition].visible,
+.js .bandeau-contact[data-apparition].visible {
+  transform: none;
+}
+
+/* « Pourquoi choisir Fluxia » : les avantages arrivent un à un. Leur icône,
+   comme celles des valeurs (À propos), surgit d'un bond. */
+.js .promesse[data-apparition] .avantage {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s var(--courbe-douce), transform 0.8s var(--courbe-ressort);
+  transition-delay: calc(0.3s + var(--rang, 0) * 0.12s);
+}
+
+.js .promesse[data-apparition].visible .avantage {
+  opacity: 1;
+  transform: none;
+}
+
+.js .promesse[data-apparition] .icone-carre,
+.js .carte-icone[data-apparition] .icone-carre {
+  transform: scale(0.4) rotate(-14deg);
+  transition: transform 0.7s var(--courbe-ressort), translate 0.25s ease, rotate 0.25s ease;
+  transition-delay: calc(0.45s + var(--rang, 0) * 0.12s + var(--delai, 0) * 90ms), 0s, 0s;
+}
+
+.js .promesse[data-apparition].visible .icone-carre,
+.js .carte-icone[data-apparition].visible .icone-carre {
+  transform: none;
+}
+
+/* « Comment ça marche » : le numéro de chaque étape surgit, puis le
+   pointillé vers la suivante se trace (sur grand écran). */
+.js .etape[data-apparition] .etape-numero {
+  transform: scale(0.3);
+  transition: transform 0.7s var(--courbe-ressort);
+  transition-delay: calc(var(--delai, 0) * 90ms + 0.25s);
+}
+
+.js .etape[data-apparition].visible .etape-numero {
+  transform: none;
+}
+
+.js .etape[data-apparition]::after {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s var(--courbe-douce);
+  transition-delay: calc(var(--delai, 0) * 90ms + 0.55s);
+}
+
+.js .etape[data-apparition].visible::after {
+  transform: none;
+}
+
+/* Au survol de la souris, les cartes se soulèvent un peu et leur icône
+   s'incline. */
+@media (hover: hover) {
+  .carte-icone:hover,
+  .carte-tarif:hover,
+  .carte-paiement:hover {
+    translate: 0 -6px;
+  }
+
+  .avantage:hover .icone-carre,
+  .carte-icone:hover .icone-carre {
+    translate: 0 -3px;
+    rotate: -8deg;
+  }
+}
+
+/* Moins d'animations demandé : tout est en place d'emblée, sans mouvement. */
+@media (prefers-reduced-motion: reduce) {
+  .js .entete,
+  .js .nav-liens > li,
+  .js .nav-actions,
+  .js [data-apparition] .mot-couleur,
+  .js .heros-actions .bouton-plein::after,
+  .js .carte-tarif .bouton-plein::after {
+    animation: none;
+  }
+
+  .js .heros-texte[data-apparition] > *,
+  .js .entete-section[data-apparition] > *,
+  .js .entete-page [data-apparition] > *,
+  .js .faq[data-apparition] > *,
+  .js [data-apparition] .surtitre::before,
+  .js [data-apparition] .surtitre--centre::after,
+  .js .heros-visuel[data-apparition],
+  .js .fondateur-photo[data-apparition],
+  .js .carte[data-apparition],
+  .js .etape[data-apparition],
+  .js .lecteur[data-apparition],
+  .js .bandeau-contact[data-apparition],
+  .js .promesse[data-apparition] .avantage,
+  .js .promesse[data-apparition] .icone-carre,
+  .js .carte-icone[data-apparition] .icone-carre,
+  .js .etape[data-apparition] .etape-numero,
+  .js .etape[data-apparition]::after {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .carte-icone:hover,
+  .carte-tarif:hover,
+  .carte-paiement:hover,
+  .avantage:hover .icone-carre,
+  .carte-icone:hover .icone-carre {
+    translate: none;
+    rotate: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

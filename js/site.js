@@ -18,7 +18,7 @@
 
   /* Numéro WhatsApp du support, au format international (même numéro que
      dans l'application : lib/core/config/support_contact.dart). */
-  var WHATSAPP = '242053950223';
+  var WHATSAPP = '242067605008';
   var LIEN_PREVENIR = 'https://wa.me/' + WHATSAPP + '?text=' +
     encodeURIComponent("Bonjour, prévenez-moi quand l'application Fluxia sera disponible, s'il vous plaît.");
 
@@ -108,8 +108,13 @@
   }
 
   /* ------------------------------------------------------------------------
-     Apparitions au défilement
+     Apparitions au défilement : chaque élément marqué data-apparition entre
+     en scène en arrivant à l'écran (css/style.css), ceux du haut de page dès
+     l'ouverture. Dans les groupes en cascade, chaque enfant reçoit son rang
+     (--rang) pour arriver juste après le précédent.
      ------------------------------------------------------------------------ */
+  var CASCADES = '.heros-texte, .entete-section, .entete-page [data-apparition], .faq, .avantages';
+
   function activerApparitions() {
     var elements = document.querySelectorAll('[data-apparition]');
     var reduit = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -118,6 +123,12 @@
       elements.forEach(function (el) { el.classList.add('visible'); });
       return;
     }
+
+    document.querySelectorAll(CASCADES).forEach(function (groupe) {
+      Array.prototype.forEach.call(groupe.children, function (enfant, rang) {
+        enfant.style.setProperty('--rang', rang);
+      });
+    });
 
     var observateur = new IntersectionObserver(function (entrees) {
       entrees.forEach(function (entree) {
