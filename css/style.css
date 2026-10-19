@@ -2453,7 +2453,7 @@ html:not(.js) .lecteur-lancer {
 .pied .pied-reseaux a:hover,
 .pied .pied-reseaux a:focus-visible {
   border-color: transparent;
-  background: var(--degrade-app);
+  background: black;
   color: var(--blanc);
   text-decoration: none;
 }
