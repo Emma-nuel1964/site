@@ -5,7 +5,7 @@
    - les apparitions douces au défilement ;
    - les onglets du téléphone (accueil) ;
    - la fenêtre « L'application arrive bientôt » (bouton « Télécharger l'application ») ;
-   - le formulaire de contact, qui n'envoie encore rien ;
+   - le formulaire de contact, envoyé à contact@appfluxia.com par la fonction serveur Fluxia ;
    - la vidéo de démonstration (pause au toucher, hors de l'écran) ;
    - les témoignages qui défilent (accueil), avec leurs flèches ;
    - les réseaux sociaux du pied de page, dont les adresses viendront plus tard ;
@@ -220,15 +220,41 @@
   }
 
   /* ------------------------------------------------------------------------
-     Formulaire de contact : il vérifie la saisie, puis explique qu'il n'est
-     pas encore actif. Rien n'est envoyé ni enregistré, et le texte reste.
+     Formulaire de contact : il vérifie la saisie, puis l'envoie à la fonction
+     serveur Fluxia « envoyer-message-contact » (Supabase), qui revérifie tout
+     et l'envoie par email à contact@appfluxia.com (Resend). Aucun secret
+     n'est dans le site ; le site n'enregistre rien. En cas d'échec, le texte
+     reste et WhatsApp est proposé. Sans JavaScript, le bouton reste
+     désactivé.
      ------------------------------------------------------------------------ */
+  var ADRESSE_CONTACT = 'https://xgryvsihnewjbutxahzf.supabase.co/functions/v1/envoyer-message-contact';
+  var MESSAGE_ENVOYE = 'Merci, votre message est bien envoyé. Nous vous répondons au plus vite, à l\'adresse indiquée.';
+  var MESSAGE_ECHEC = 'Le message n\'a pas pu partir. Vérifiez votre connexion et réessayez, ou écrivez-nous sur WhatsApp.';
+  var MESSAGE_TROP = 'Vous avez envoyé plusieurs messages en peu de temps. Réessayez dans une heure, ou écrivez-nous sur WhatsApp.';
+
   function activerFormulaire() {
     var formulaire = document.querySelector('[data-formulaire-contact]');
     if (!formulaire) return;
 
     var statut = formulaire.querySelector('[data-statut]');
+    var texteStatut = statut.querySelector('[data-statut-texte]');
+    var iconeStatut = statut.querySelector('[data-statut-icone]');
+    var lienWhatsapp = statut.querySelector('[data-statut-whatsapp]');
+    var bouton = formulaire.querySelector('button[type="submit"]');
     var champs = Array.prototype.slice.call(formulaire.querySelectorAll('[data-verifier]'));
+
+    // Le bouton n'est actif qu'avec JavaScript : sans lui, rien ne part sans
+    // les vérifications.
+    bouton.disabled = false;
+
+    function montrerStatut(envoye, message) {
+      texteStatut.textContent = message;
+      iconeStatut.setAttribute('href', envoye ? '#i-coche-cercle' : '#i-info');
+      lienWhatsapp.hidden = envoye;
+      statut.classList.toggle('formulaire-statut--envoye', envoye);
+      statut.hidden = false;
+      statut.focus();
+    }
 
     function erreurDe(champ) {
       var valeur = champ.value.trim();
@@ -271,8 +297,52 @@
         premier.focus();
         return;
       }
-      statut.hidden = false;
-      statut.focus();
+
+      var donnees = {
+        nom: formulaire.nom.value.trim(),
+        email: formulaire.email.value.trim(),
+        telephone: formulaire.telephone.value.trim(),
+        message: formulaire.message.value.trim(),
+        site: formulaire.site.value // piège à robots, normalement vide
+      };
+
+      bouton.disabled = true;
+      statut.hidden = true;
+      fetch(ADRESSE_CONTACT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(donnees)
+      }).then(function (reponse) {
+        return reponse.json().catch(function () { return {}; }).then(function (corps) {
+          return { status: reponse.status, corps: corps };
+        });
+      }).then(function (resultat) {
+        if (resultat.status === 200 && resultat.corps.ok) {
+          formulaire.reset();
+          montrerStatut(true, MESSAGE_ENVOYE);
+          return;
+        }
+        // Le serveur a trouvé une erreur de saisie : on l'affiche sous le champ.
+        var erreursServeur = resultat.status === 400 && resultat.corps.champs;
+        if (erreursServeur) {
+          var premierServeur = null;
+          champs.forEach(function (champ) {
+            var message = erreursServeur[champ.name] || '';
+            afficher(champ, message);
+            if (message && !premierServeur) premierServeur = champ;
+          });
+          if (premierServeur) {
+            premierServeur.focus();
+            return;
+          }
+        }
+        throw new Error('réponse ' + resultat.status + ' : ' + (resultat.corps.erreur || ''));
+      }).catch(function (erreur) {
+        console.error('Envoi du formulaire impossible : ' + erreur.message);
+        montrerStatut(false, /réponse 429/.test(erreur.message) ? MESSAGE_TROP : MESSAGE_ECHEC);
+      }).then(function () {
+        bouton.disabled = false;
+      });
     });
   }
 

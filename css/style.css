@@ -2079,6 +2079,30 @@ html:not(.js) .lecteur-lancer {
   display: none;
 }
 
+/* Message bien envoyé : vert, sans bouton WhatsApp. */
+.formulaire-statut--envoye {
+  border-color: var(--menthe);
+  background: var(--menthe-pale);
+}
+
+.formulaire-statut--envoye .icone {
+  color: var(--sarcelle-texte);
+}
+
+.formulaire-statut--envoye p {
+  margin: 0;
+}
+
+.formulaire-statut .bouton[hidden] {
+  display: none;
+}
+
+/* Pendant l'envoi. */
+.formulaire .bouton:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
 .disponibilite {
   margin: 32px 0 0;
   color: var(--texte-doux);

@@ -126,7 +126,9 @@
                 ></span>
                 <div>
                   <strong>Email</strong>
-                  <a href="mailto:contact@appfluxia.com">contact@appfluxia.com</a>
+                  <a href="mailto:contact@appfluxia.com"
+                    >contact@appfluxia.com</a
+                  >
                 </div>
               </li>
               <li class="coordonnee">
@@ -142,8 +144,13 @@
             </ul>
           </div>
 
-          <!-- Le formulaire n'envoie rien pour l'instant : il vérifie la saisie,
-             puis propose WhatsApp (voir js/site.js). Rien n'est enregistré. -->
+          <!-- Formulaire de contact : js/site.js vérifie la saisie, puis
+             l'envoie à la fonction serveur Fluxia « envoyer-message-contact »
+             (Supabase), qui revérifie tout et l'envoie par email à
+             contact@appfluxia.com avec Resend. Aucun secret n'est dans le
+             site, et le site n'enregistre rien. Sans JavaScript, le bouton
+             reste désactivé : WhatsApp, le téléphone et l'email sont à côté.
+             Voir LISEZMOI.md. -->
           <form
             class="carte formulaire"
             action="#"
@@ -152,6 +159,16 @@
             data-apparition
             style="--delai: 1"
           >
+            <!-- Piège à robots : invisible pour un visiteur, qui le laisse
+                 vide ; la fonction serveur ignore un message qui le remplit. -->
+            <input
+              type="text"
+              name="site"
+              class="visuellement-cache"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
             <h2 class="titre-3">Écrivez-nous</h2>
             <div class="champ">
               <label for="nom">Nom complet</label>
@@ -216,12 +233,18 @@
               ></textarea>
               <p class="champ-erreur" id="message-erreur" hidden></p>
             </div>
-            <button class="bouton bouton-plein bouton-bloc" type="submit">
+            <button class="bouton bouton-plein bouton-bloc" type="submit" disabled>
               <svg class="icone icone-petite" aria-hidden="true">
                 <use href="#i-envoyer"></use>
               </svg>
               Envoyer le message
             </button>
+            <noscript>
+              <p>
+                Pour envoyer ce formulaire, activez JavaScript, ou écrivez-nous
+                sur WhatsApp au 06&nbsp;760&nbsp;50&nbsp;08.
+              </p>
+            </noscript>
             <div
               class="formulaire-statut"
               role="status"
@@ -229,20 +252,19 @@
               hidden
               data-statut
             >
+              <!-- Le texte est écrit par js/site.js : message envoyé, ou
+                   échec avec WhatsApp en secours. -->
               <svg class="icone" aria-hidden="true">
-                <use href="#i-info"></use>
+                <use href="#i-info" data-statut-icone></use>
               </svg>
               <div>
-                <p>
-                  <strong>Le formulaire sera bientôt actif.</strong> Votre
-                  message n'a pas été envoyé&nbsp;: en attendant, écrivez-nous
-                  sur WhatsApp.
-                </p>
+                <p data-statut-texte></p>
                 <a
                   class="bouton bouton-plein bouton-petit"
                   href="https://wa.me/242067605008?text=Bonjour%2C%20j%27ai%20une%20question%20sur%20Fluxia."
                   target="_blank"
                   rel="noopener"
+                  data-statut-whatsapp
                 >
                   <svg class="icone icone-petite" aria-hidden="true">
                     <use href="#i-message"></use>
@@ -303,23 +325,32 @@
               Fluxia aide les commerçants à suivre leurs encaissements et à
               piloter leur activité, simplement, depuis leur téléphone.
             </p>
-            <ul class="pied-reseaux" aria-label="Fluxia sur les réseaux sociaux">
+            <ul
+              class="pied-reseaux"
+              aria-label="Fluxia sur les réseaux sociaux"
+            >
               <!-- Adresses à venir : remplacer href="#" par l'adresse de la page, et retirer data-reseau-a-venir. -->
               <li>
                 <a href="#" data-reseau-a-venir>
-                  <svg class="icone" aria-hidden="true"><use href="#i-instagram"></use></svg>
+                  <svg class="icone" aria-hidden="true">
+                    <use href="#i-instagram"></use>
+                  </svg>
                   <span class="visuellement-cache">Fluxia sur Instagram</span>
                 </a>
               </li>
               <li>
                 <a href="#" data-reseau-a-venir>
-                  <svg class="icone" aria-hidden="true"><use href="#i-facebook"></use></svg>
+                  <svg class="icone" aria-hidden="true">
+                    <use href="#i-facebook"></use>
+                  </svg>
                   <span class="visuellement-cache">Fluxia sur Facebook</span>
                 </a>
               </li>
               <li>
                 <a href="https://wa.me/242067605008">
-                  <svg class="icone" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+                  <svg class="icone" aria-hidden="true">
+                    <use href="#i-whatsapp"></use>
+                  </svg>
                   <span class="visuellement-cache">Fluxia sur WhatsApp</span>
                 </a>
               </li>
@@ -363,7 +394,9 @@
               <li>
                 <svg class="icone" aria-hidden="true">
                   <use href="#i-email"></use></svg
-                ><a href="mailto:contact@appfluxia.com">contact@appfluxia.com</a>
+                ><a href="mailto:contact@appfluxia.com"
+                  >contact@appfluxia.com</a
+                >
               </li>
               <li>
                 <svg class="icone" aria-hidden="true">
