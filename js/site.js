@@ -430,6 +430,20 @@
   }
 
   /* ------------------------------------------------------------------------
+     Vidéos non téléchargeables : pas de bouton « Télécharger » dans le
+     lecteur (controlslist="nodownload" dans la page), et pas de menu du
+     clic droit (« Enregistrer la vidéo sous ») ni de glisser-déposer.
+     Cela arrête le visiteur ordinaire ; une vidéo lue par le navigateur
+     reste récupérable par quelqu'un de déterminé.
+     ------------------------------------------------------------------------ */
+  function protegerVideos() {
+    document.querySelectorAll('video').forEach(function (video) {
+      video.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+      video.setAttribute('draggable', 'false');
+    });
+  }
+
+  /* ------------------------------------------------------------------------
      Témoignages qui défilent (accueil), avec leurs flèches.
      - Les avis sont recopiés autant qu'il faut pour que l'écran reste plein :
        la piste glisse d'un exemplaire, puis repart, sans saut.
@@ -669,6 +683,7 @@
   activerFormulaire();
   activerVideo();
   activerLecteur();
+  protegerVideos();
   activerTemoignages();
   activerReseaux();
   mettreAnnee();
