@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Votre compte · Fluxia</title>
+  <meta name="robots" content="noindex">
+  <!-- L'adresse de cette page contient un lien à usage unique : elle n'est
+       jamais transmise à un autre site. -->
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0B2D45">
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/icone-32.png">
+  <link rel="apple-touch-icon" href="../images/icone-180.png">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="../js/site.js" defer></script>
+  <script src="../js/auth.js" defer></script>
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+  <header class="entete" data-entete>
+    <div class="conteneur entete-barre">
+      <a class="marque" href="../index.html" aria-label="Fluxia, accueil">
+        <img src="../images/logo.png" alt="" width="41" height="36">
+        <span>Fluxia</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <!-- Page ouverte par les liens des emails de Fluxia (confirmation
+         d'adresse, nouveau mot de passe) quand l'application ne s'ouvre pas
+         d'elle-même : ordinateur, téléphone sans Fluxia. Sur un téléphone où
+         Fluxia est installée, Android ouvre directement l'application
+         (.well-known/assetlinks.json). js/auth.js montre le bon bloc et
+         parle au service de connexion de Fluxia (Supabase). -->
+    <section class="page-auth">
+      <div class="conteneur">
+        <div class="carte page-auth-carte" data-auth>
+
+          <div data-etat="chargement">
+            <h1 class="titre-3">Un instant…</h1>
+            <noscript>
+              <p>Activez JavaScript pour continuer, ou ouvrez ce lien sur le téléphone où Fluxia est installée.</p>
+            </noscript>
+          </div>
+
+          <div data-etat="confirmation" hidden>
+            <span class="icone-carre page-auth-icone"><svg class="icone" aria-hidden="true"><use href="#i-email"></use></svg></span>
+            <h1 class="titre-2">Confirmez votre adresse email</h1>
+            <p class="chapeau">Touchez le bouton pour activer votre compte Fluxia.</p>
+            <button class="bouton bouton-plein bouton-bloc" type="button" data-confirmer>Confirmer mon adresse</button>
+            <a class="bouton bouton-contour bouton-bloc" href="#" hidden data-ouvrir-app>Ouvrir dans l'application Fluxia</a>
+          </div>
+
+          <div data-etat="confirmee" hidden>
+            <span class="icone-carre page-auth-icone"><svg class="icone" aria-hidden="true"><use href="#i-coche-cercle"></use></svg></span>
+            <h1 class="titre-2">Adresse confirmée</h1>
+            <p class="chapeau">Votre compte Fluxia est activé. Ouvrez l'application sur votre téléphone et connectez-vous avec votre adresse email et votre mot de passe.</p>
+          </div>
+
+          <form class="formulaire" data-etat="nouveau-mot-de-passe" novalidate hidden>
+            <span class="icone-carre page-auth-icone"><svg class="icone" aria-hidden="true"><use href="#i-cadenas"></use></svg></span>
+            <h1 class="titre-2">Choisissez un nouveau mot de passe</h1>
+            <div class="champ">
+              <label for="mot-de-passe">Nouveau mot de passe</label>
+              <input id="mot-de-passe" name="mot-de-passe" type="password" autocomplete="new-password" minlength="8" required aria-describedby="mot-de-passe-erreur">
+              <p class="champ-erreur" id="mot-de-passe-erreur" hidden></p>
+            </div>
+            <div class="champ">
+              <label for="confirmation">Confirmez le mot de passe</label>
+              <input id="confirmation" name="confirmation" type="password" autocomplete="new-password" required aria-describedby="confirmation-erreur">
+              <p class="champ-erreur" id="confirmation-erreur" hidden></p>
+            </div>
+            <button class="bouton bouton-plein bouton-bloc" type="submit">Enregistrer le mot de passe</button>
+            <a class="bouton bouton-contour bouton-bloc" href="#" hidden data-ouvrir-app>Ouvrir dans l'application Fluxia</a>
+          </form>
+
+          <div data-etat="mot-de-passe-change" hidden>
+            <span class="icone-carre page-auth-icone"><svg class="icone" aria-hidden="true"><use href="#i-coche-cercle"></use></svg></span>
+            <h1 class="titre-2">Mot de passe modifié</h1>
+            <p class="chapeau">Connectez-vous dans l'application Fluxia avec votre nouveau mot de passe.</p>
+          </div>
+
+          <div data-etat="invalide" hidden>
+            <span class="icone-carre page-auth-icone"><svg class="icone" aria-hidden="true"><use href="#i-info"></use></svg></span>
+            <h1 class="titre-2">Ce lien ne fonctionne plus</h1>
+            <p class="chapeau">Il a expiré ou a déjà servi. Demandez-en un nouveau depuis l'application Fluxia : « Renvoyer l'email » pour confirmer votre adresse, ou « Mot de passe oublié ? » sur l'écran de connexion.</p>
+          </div>
+
+          <div data-etat="incomplet" hidden>
+            <span class="icone-carre page-auth-icone"><svg class="icone" aria-hidden="true"><use href="#i-info"></use></svg></span>
+            <h1 class="titre-2">Lien incomplet</h1>
+            <p class="chapeau">Ouvrez le lien directement depuis l'email reçu de Fluxia.</p>
+          </div>
+
+          <div class="formulaire-statut" role="status" tabindex="-1" hidden data-statut>
+            <svg class="icone" aria-hidden="true"><use href="#i-info"></use></svg>
+            <div><p data-statut-texte></p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <div class="pied-bas">
+        <p>© <span data-annee>2026</span> Fluxia. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

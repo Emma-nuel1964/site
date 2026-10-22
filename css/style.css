@@ -2118,6 +2118,40 @@ html:not(.js) .lecteur-lancer {
   }
 }
 
+/* Page /auth/ : liens des emails de Fluxia ouverts sans l'application
+   (js/auth.js montre un seul bloc à la fois). */
+.page-auth {
+  padding: 48px 0 72px;
+}
+
+.page-auth-carte {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.page-auth-carte [data-etat] {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+
+.page-auth-carte .bouton-bloc,
+.page-auth-carte .champ {
+  justify-self: stretch;
+}
+
+.page-auth-carte .chapeau {
+  margin: 0;
+}
+
+.page-auth-carte .formulaire-statut {
+  margin-top: 16px;
+}
+
+.page-auth-carte [hidden] {
+  display: none !important;
+}
+
 @media (min-width: 960px) {
   .contact-grille {
     grid-template-columns: 0.85fr 1.15fr;

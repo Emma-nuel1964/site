@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.fluxia.fluxia",
+      "sha256_cert_fingerprints": [
+        "60:84:0F:37:AD:82:84:A8:01:52:96:33:6C:F7:8A:88:72:E3:E4:A2:9F:9D:B3:B1:E0:66:CC:6F:DF:13:9F:E2"
+      ]
+    }
+  }
+]
