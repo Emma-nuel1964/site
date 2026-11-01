@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Paiement : seuls les scripts du site et le serveur Fluxia sont permis. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-/x7W7R75k8Roq0WaVRQX9blP4OufE5xbAdzklGxsgpw='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://xgryvsihnewjbutxahzf.supabase.co; base-uri 'none'; form-action 'none'">
   <title>Abonnement · Fluxia</title>
   <meta name="description" content="14 jours d'essai gratuit, puis 2 500 FCFA par mois pour tout votre compte Fluxia, jusqu'à 4 commerces.">
   <meta name="theme-color" content="#0B2D45">
@@ -21,6 +23,7 @@
   <link rel="stylesheet" href="css/style.css">
   <script>document.documentElement.classList.add('js');</script>
   <script src="js/site.js" defer></script>
+  <script src="js/paiement.js" defer></script>
 </head>
 <body>
   <a class="lien-evitement" href="#contenu">Aller au contenu</a>
@@ -92,20 +95,96 @@
           </a>
         </div>
 
-        <!-- C'est ici que viendra le paiement de l'abonnement par mobile money. -->
-        <div class="carte carte-paiement" id="paiement" data-apparition style="--delai: 1">
-          <span class="icone-carre icone-carre--doux"><svg class="icone" aria-hidden="true"><use href="#i-carte"></use></svg></span>
-          <h2 class="titre-3">Payer mon abonnement</h2>
-          <p><span class="etiquette-bientot">
-            <svg class="icone icone-petite" aria-hidden="true"><use href="#i-horloge"></use></svg>
-            Bientôt disponible
-          </span></p>
-          <p>Vous pourrez bientôt payer votre abonnement ici, par mobile money, sans passer par l'application. Il suffira d'indiquer l'adresse email de votre compte Fluxia.</p>
-          <p>En attendant, une question sur votre abonnement&nbsp;?</p>
-          <a class="bouton bouton-plein" href="https://wa.me/242067605008?text=Bonjour%2C%20j%27ai%20une%20question%20sur%20mon%20abonnement%20Fluxia." target="_blank" rel="noopener">
-            <svg class="icone icone-petite" aria-hidden="true"><use href="#i-message"></use></svg>
-            Écrire sur WhatsApp
-          </a>
+        <!-- Paiement de l'abonnement (js/paiement.js) -->
+        <div class="carte carte-paiement" id="paiement" data-paiement data-apparition style="--delai: 1">
+          <div class="paiement-indisponible" data-etat="indisponible">
+            <span class="icone-carre icone-carre--doux"><svg class="icone" aria-hidden="true"><use href="#i-carte"></use></svg></span>
+            <h2 class="titre-3">Payer mon abonnement</h2>
+            <p>Paiement indisponible.</p>
+            <p>Une question sur votre abonnement&nbsp;?</p>
+            <a class="bouton bouton-plein" href="https://wa.me/242067605008?text=Bonjour%2C%20j%27ai%20une%20question%20sur%20mon%20abonnement%20Fluxia." target="_blank" rel="noopener">
+              <svg class="icone icone-petite" aria-hidden="true"><use href="#i-message"></use></svg>
+              Écrire sur WhatsApp
+            </a>
+          </div>
+
+          <div class="paiement-etape" data-etat="chargement" hidden>
+            <span class="icone-carre icone-carre--doux"><svg class="icone" aria-hidden="true"><use href="#i-carte"></use></svg></span>
+            <h2 class="titre-3">Payer mon abonnement</h2>
+            <p>Un instant…</p>
+          </div>
+
+          <form class="paiement-etape" data-etat="connexion" method="post" novalidate hidden>
+            <span class="icone-carre icone-carre--doux"><svg class="icone" aria-hidden="true"><use href="#i-cadenas"></use></svg></span>
+            <h2 class="titre-3">Payer mon abonnement</h2>
+            <p>Connectez-vous avec votre compte Fluxia.</p>
+            <div class="champ">
+              <label for="paiement-email">Adresse email</label>
+              <input id="paiement-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="paiement-email-erreur">
+              <p class="champ-erreur" id="paiement-email-erreur" hidden></p>
+            </div>
+            <div class="champ">
+              <label for="paiement-mot-de-passe">Mot de passe</label>
+              <input id="paiement-mot-de-passe" name="mot-de-passe" type="password" autocomplete="current-password" required aria-describedby="paiement-mot-de-passe-erreur">
+              <p class="champ-erreur" id="paiement-mot-de-passe-erreur" hidden></p>
+            </div>
+            <button class="bouton bouton-plein bouton-bloc" type="submit">Se connecter</button>
+          </form>
+
+          <div class="paiement-etape" data-etat="compte" hidden>
+            <span class="icone-carre icone-carre--doux"><svg class="icone" aria-hidden="true"><use href="#i-carte"></use></svg></span>
+            <h2 class="titre-3">Payer mon abonnement</h2>
+            <p class="paiement-connecte">Connecté avec <strong data-email></strong>. <button class="lien-bouton" type="button" data-deconnecter>Se déconnecter</button></p>
+            <div class="paiement-etat" data-abonnement>
+              <strong data-abonnement-titre></strong>
+            </div>
+            <button class="bouton bouton-plein bouton-bloc" type="button" data-payer>Payer 2&nbsp;500&nbsp;FCFA (1&nbsp;mois)</button>
+            <p class="paiement-note">Paiement non remboursable.</p>
+            <div class="paiement-historique">
+              <h3>Vos paiements</h3>
+              <ul data-historique hidden></ul>
+              <p data-historique-vide>Aucun paiement.</p>
+            </div>
+          </div>
+
+          <div class="paiement-etape" data-etat="verification" hidden>
+            <span class="icone-carre icone-carre--doux"><svg class="icone" aria-hidden="true"><use href="#i-horloge"></use></svg></span>
+            <h2 class="titre-3">Vérification du paiement…</h2>
+          </div>
+
+          <div class="paiement-etape" data-etat="paye" hidden>
+            <span class="icone-carre icone-carre--doux"><svg class="icone" aria-hidden="true"><use href="#i-coche-cercle"></use></svg></span>
+            <h2 class="titre-3">Paiement confirmé</h2>
+            <p data-paye-texte>Votre abonnement est prolongé d'un mois.</p>
+          </div>
+
+          <div class="paiement-etape" data-etat="en-attente" hidden>
+            <span class="icone-carre icone-carre--doux"><svg class="icone" aria-hidden="true"><use href="#i-horloge"></use></svg></span>
+            <h2 class="titre-3">Paiement en attente de confirmation</h2>
+            <button class="bouton bouton-plein bouton-bloc" type="button" data-reverifier>Vérifier à nouveau</button>
+            <button class="bouton bouton-contour bouton-bloc" type="button" data-retour-compte>Retour</button>
+          </div>
+
+          <div class="paiement-etape" data-etat="non-abouti" hidden>
+            <span class="icone-carre icone-carre--doux"><svg class="icone" aria-hidden="true"><use href="#i-croix-cercle"></use></svg></span>
+            <h2 class="titre-3">Paiement non effectué</h2>
+            <p>Aucun montant n'a été prélevé.</p>
+            <button class="bouton bouton-plein bouton-bloc" type="button" data-retour-compte>Réessayer</button>
+          </div>
+
+          <div class="paiement-etape" data-etat="a-verifier" hidden>
+            <span class="icone-carre icone-carre--doux"><svg class="icone" aria-hidden="true"><use href="#i-info"></use></svg></span>
+            <h2 class="titre-3">Paiement en cours de vérification</h2>
+            <a class="bouton bouton-plein bouton-bloc" href="https://wa.me/242067605008?text=Bonjour%2C%20mon%20paiement%20d%27abonnement%20Fluxia%20est%20%C3%A0%20v%C3%A9rifier." target="_blank" rel="noopener">
+              <svg class="icone icone-petite" aria-hidden="true"><use href="#i-message"></use></svg>
+              Écrire sur WhatsApp
+            </a>
+          </div>
+
+          <div class="formulaire-statut" role="status" tabindex="-1" hidden data-statut>
+            <svg class="icone" aria-hidden="true"><use href="#i-info"></use></svg>
+            <div><p data-statut-texte></p></div>
+          </div>
         </div>
       </div>
     </section>

@@ -1684,6 +1684,153 @@ html:not(.js) .lecteur-lancer {
   align-self: flex-start;
 }
 
+/* Paiement de l'abonnement (js/paiement.js) : un seul bloc data-etat à la
+   fois. « indisponible » garde la mise en page de la carte elle-même. */
+.carte-paiement [hidden] {
+  display: none !important;
+}
+
+.paiement-indisponible {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.paiement-etape {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+}
+
+.paiement-etape > p {
+  margin: 0;
+}
+
+.paiement-etape h2 {
+  margin-top: 6px;
+}
+
+.paiement-etape .bouton {
+  margin-top: 0;
+  align-self: auto;
+}
+
+.paiement-etape .bouton:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.paiement-etape .bouton-bloc,
+.paiement-etape .champ,
+.paiement-etat,
+.paiement-historique {
+  justify-self: stretch;
+}
+
+.carte-paiement .champ-erreur {
+  color: var(--erreur);
+}
+
+.carte-paiement .paiement-note {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.carte-paiement .formulaire-statut {
+  margin-top: 16px;
+}
+
+.carte-paiement .formulaire-statut p {
+  margin: 0;
+  color: var(--texte);
+}
+
+.paiement-connecte strong {
+  color: var(--texte);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* « Se déconnecter » : un bouton qui a l'air d'un lien. */
+.lien-bouton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--marine);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* État de l'abonnement : en menthe, ou en orange s'il a expiré. */
+.paiement-etat {
+  display: grid;
+  gap: 2px;
+  padding: 14px 16px;
+  border: 1px solid var(--menthe);
+  border-radius: 16px;
+  background: var(--menthe-pale);
+}
+
+.paiement-etat strong {
+  color: var(--texte);
+  font-weight: 600;
+}
+
+.paiement-etat--expire {
+  border-color: #F2D7A6;
+  background: var(--bientot-fond);
+}
+
+.paiement-historique {
+  margin-top: 8px;
+}
+
+.paiement-historique h3 {
+  font-size: 1.05rem;
+}
+
+.paiement-historique ul {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.paiement-historique li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--bordure-douce);
+}
+
+.paiement-historique .paiement-date {
+  display: block;
+  color: var(--texte);
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.paiement-historique .paiement-periode {
+  color: var(--texte-doux);
+  font-size: 13.5px;
+}
+
+.paiement-historique .paiement-montant {
+  flex-shrink: 0;
+  color: var(--texte);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.paiement-historique > p {
+  margin: 8px 0 0;
+  font-size: 14.5px;
+}
+
 @media (min-width: 960px) {
   .tarifs {
     grid-template-columns: 1.1fr 0.9fr;
